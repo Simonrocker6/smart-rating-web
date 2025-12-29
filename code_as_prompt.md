@@ -51,6 +51,32 @@ interface AssistantResponse {
   cards?: Card[];                       // 可选卡片（文章、药品说明书、门诊排班等）
 }
 
+interface Card {
+  /**
+   * 卡片类型，限定为以下四种
+   */
+  type: "article" | "med_instructions" | "video" | "faq";
+
+  /**
+   * 卡片标题，面向用户展示
+   */
+  title: string;
+
+  /**
+   * 资源唯一标识符，用于后端内容服务查询或跳转
+   * - article: 患教文章 ID（如 "morning_bp_guide"）
+   * - med_instructions: 药品通用名或标准化药品ID（如 "amlodipine_besylate"）
+   * - video: 视频内容ID（如 "how_to_measure_bp_correctly"）
+   * - faq: 常见问题ID（如 "can_i_eat_grapefruit_with_amlodipine"）
+   */
+  resource_id: string;
+
+  /**
+   * 简短描述，帮助用户快速理解卡片内容（建议 ≤ 50 字）
+   */
+  description: string;
+}
+
 type ExecutableAction =
   | RecordBloodPressureAction
   | RecordMedicationAction;
